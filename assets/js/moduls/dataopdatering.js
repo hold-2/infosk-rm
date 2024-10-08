@@ -24,8 +24,8 @@ const APIUpdater = {
         this.isRunning = false;
     },
 
-    // En funktion til polling af en API
-    async pollAPI(apiConfig) {
+    // En funktion til pulling af en API
+    async pullAPI(apiConfig) {
         while (this.isRunning) {
             try {
                 const response = await fetch(apiConfig.url, {
