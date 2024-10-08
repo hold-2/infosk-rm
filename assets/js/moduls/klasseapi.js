@@ -1,4 +1,4 @@
-export async function fetchAPIConfigs() {
+export async function fetchAPIConfigsklasser() {
     try {
         const response = await fetch('https://iws.itcn.dk/techcollege/schedules?departmentcode=smed'); // URL til at hente API-konfigurationer
         if (!response.ok) {

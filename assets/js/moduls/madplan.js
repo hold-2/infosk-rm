@@ -1,4 +1,4 @@
-export async function fetchAPIConfigs() {
+export async function fetchAPIConfigsmadplan() {
     try {
         const response = await fetch('https://infoskaerm.techcollege.dk/umbraco/api/content/getcanteenmenu/?type=json'); // URL til at hente API-konfigurationer
         if (!response.ok) {

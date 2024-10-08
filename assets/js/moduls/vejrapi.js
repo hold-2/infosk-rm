@@ -1,4 +1,4 @@
-export async function fetchAPIConfigs() {
+export async function fetchAPIConfigsvejr() {
     try {
         const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Aalborg&appid=4d58d6f0a435bf7c5a52e2030f17682d&units=metric'); // URL til at hente API-konfigurationer
         if (!response.ok) {
