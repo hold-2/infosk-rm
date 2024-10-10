@@ -1,66 +1,134 @@
+/* General styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #2C2C2C; /* Dark background */
-    color: #FFFFFF; /* White text */
+    background-color: #2c2c2c;
+    color: #ffffff;
     margin: 0;
     padding: 20px;
 }
 
-h1 {
-    text-align: center;
-    color: #00BFFF; /* Bright blue for heading */
-}
-
 h2 {
-    color: #00BFFF; /* Bright blue for section headings */
-    margin-top: 20px;
+    font-size: 24px;
+    color: #ffffff;
+    text-align: left;
+    border-bottom: 2px solid #00bfff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
+/* Weather Section */
 #info {
-    background-color: #3B3B3B; /* Darker gray for info section */
-    padding: 15px;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    background-color: #333333;
+    padding: 20px;
+    border-radius: 10px;
     margin-bottom: 20px;
 }
 
 #weather-info {
-    font-size: 1.5em; /* Larger text for weather info */
-    text-align: center;
+    flex-grow: 1;
+    font-size: 36px;
+    font-weight: bold;
 }
 
-ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0;
-    background-color: #3B3B3B; /* Same dark gray for all sections */
-    border-radius: 8px;
-    padding: 15px;
+#weather-info::before {
+    content: '☁'; /* Example icon for cloudy weather */
+    font-size: 48px;
+    margin-right: 10px;
+}
+
+#weather-info span {
+    color: #00bfff;
+    font-size: 48px;
+    margin-left: 10px;
+}
+
+/* Bus Schedule Section */
+#bus-schedule {
+    background-color: #333333;
+    padding: 20px;
+    border-radius: 10px;
+    list-style-type: none;
     margin-bottom: 20px;
 }
 
-ul li {
-    padding: 10px 0; /* Padding for list items */
-    border-bottom: 1px solid #00BFFF; /* Bottom border for separation */
+#bus-schedule li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-ul li:last-child {
-    border-bottom: none; /* Remove border from last item */
+#bus-schedule li span {
+    background-color: #444444;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #00bfff;
+}
+
+/* Class Schedule Section */
+#class-schedule {
+    background-color: #333333;
+    padding: 20px;
+    border-radius: 10px;
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+#class-schedule li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#class-schedule li span {
+    background-color: #444444;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #00bfff;
+}
+
+/* Canteen Menu Section */
+#canteen-menu {
+    background-color: #333333;
+    padding: 20px;
+    border-radius: 10px;
+    list-style-type: none;
+}
+
+#canteen-menu li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#canteen-menu li span {
+    background-color: #444444;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #00bfff;
+}
+
+/* Styling for special elements (days of the week) */
+#canteen-menu li:first-child {
+    color: #00bfff;
+    font-weight: bold;
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
-    body {
-        padding: 10px; /* Less padding on smaller screens */
-    }
-
-    h1 {
-        font-size: 1.5em; /* Smaller heading font size */
-    }
-
+@media (max-width: 768px) {
     h2 {
-        font-size: 1.2em; /* Smaller section heading font size */
+        font-size: 20px;
     }
 
     #weather-info {
-        font-size: 1.2em; /* Smaller weather info font size */
+        font-size: 24px;
+    }
+
+    #bus-schedule li span, #class-schedule li span, #canteen-menu li span {
+        font-size: 16px;
     }
 }
