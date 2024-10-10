@@ -14,11 +14,10 @@ function updateClassScheduleUI(classData) {
 
     filteredClasses.forEach(classItem => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${classItem.education}: ${classItem.className} at ${classItem.time}`;
+        listItem.textContent = `${classItem.Room || 'unnamed room'}:${classItem.Team || 'Unnamed Class'}:${classItem.Education || 'Unknown Program'}:${new Date(classItem.StartDate).toLocaleTimeString("da-DK").slice(0,5) || 'No Time Available'}`;
         classListElement.appendChild(listItem);
     });
 }
-
 // Function to update canteen menu UI
 function updateCanteenMenuUI(menuData) {
     const menuElement = document.getElementById('canteen-menu');
@@ -26,9 +25,10 @@ function updateCanteenMenuUI(menuData) {
 
     menuData.forEach(item => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${item.Day}: ${item.Meal}`;
+        listItem.textContent = `${item.DayName || 'Unknown Day'}: ${item.Dish || 'No Dish Available'}`;
         menuElement.appendChild(listItem);
     });
+    
 }
 
 // Function to update bus times UI

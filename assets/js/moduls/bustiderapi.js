@@ -51,19 +51,4 @@ fetchAPIConfigsbusser().then((initialData) => {
 
     console.log(initialData)
     //updateBusTimetable(initialData.MultiDepartureBoard.Departure);
-
-    // Start periodic updates using APIUpdater
-    const apiConfig = {
-        name: 'busTimes',
-        url: 'https://xmlopen.rejseplanen.dk/bin/rest.exe/multiDepartureBoard?id1=851400602&id2=851973402&rttime&format=json&useBus=1',
-        method: 'GET',
-        onUpdate: (newData) => {
-            updateBusTimetable(newData.MultiDepartureBoard.Departure); // Ensure to map the new data structure properly
-        },
-        onError: (error) => {
-            console.error('Error updating bus times:', error);
-        }
-    };
-
-    APIUpdater.start([apiConfig], 5000); // Start polling every 5 seconds
 });
