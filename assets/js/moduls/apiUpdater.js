@@ -8,14 +8,14 @@ const APIUpdater = {
     data: {},
 
     // En funktion til at starte opdateringerne
-    start(apiConfigs, refreshInterval = 5000) {
+    start(apiConfigs, refreshInterval = 50000) {
         this.apiConfigs = apiConfigs;
         this.refreshInterval = refreshInterval;
         this.isRunning = true;
 
         // Start polling af hver API
         this.apiConfigs.forEach((apiConfig) => {
-            this.pollAPI(apiConfig);
+            this.pullAPI(apiConfig);
         });
     },
 

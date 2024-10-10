@@ -4,7 +4,8 @@ export async function fetchAPIConfigsvejr() {
         if (!response.ok) {
             throw new Error(`Failed to fetch API configurations: ${response.statusText}`);
         }
-
+        console.log('fetchAPIConfigsvejr');
+        
         const apiConfigs = await response.json();
         return apiConfigs;
     } catch (error) {
