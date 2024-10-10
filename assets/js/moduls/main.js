@@ -4,6 +4,8 @@ import { fetchAPIConfigsklasser, filterClassesByProgram } from './klasseapi.js';
 import { fetchAPIConfigsmadplan } from './madplan.js';
 import { fetchAPIConfigsbusser } from './bustiderapi.js';
 import { fetchAPIConfigsvejr } from './vejrapi.js'; // Assuming you have a weather module
+import { WeatherView } from "./view.js";
+import { WeatherModel } from "./model.js";
 
 // --- FUNCTIONS TO UPDATE THE UI ---
 
@@ -47,6 +49,8 @@ function updateBusTimesUI(busData) {
 // Function to update weather UI
 function updateWeatherUI(weatherData) {
     const weatherElement = document.getElementById('weather-info');
+    WeatherModel()
+    WeatherView()
     weatherElement.innerHTML = `Current weather: ${weatherData.temperature}°C, ${weatherData.condition}`;
 }
 
