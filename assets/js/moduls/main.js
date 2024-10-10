@@ -1,11 +1,8 @@
-
 import APIUpdater from './apiUpdater.js';
 import { fetchAPIConfigsklasser, filterClassesByProgram } from './klasseapi.js';
 import { fetchAPIConfigsmadplan } from './madplan.js';
 import { fetchAPIConfigsbusser } from './bustiderapi.js';
-import { fetchAPIConfigsvejr } from './vejrapi.js'; // Assuming you have a weather module
-import { WeatherView } from "./view.js";
-import { WeatherModel } from "./model.js";
+import { fetchAPIConfigsvejr } from './vejrapi.js'; // Weather API
 
 // --- FUNCTIONS TO UPDATE THE UI ---
 
@@ -49,9 +46,25 @@ function updateBusTimesUI(busData) {
 // Function to update weather UI
 function updateWeatherUI(weatherData) {
     const weatherElement = document.getElementById('weather-info');
-    WeatherModel()
-    WeatherView()
-    weatherElement.innerHTML = `Current weather: ${weatherData.temperature}°C, ${weatherData.condition}`;
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const temperature = weatherData.main?.temp || 'N/A';
+    const description = weatherData.weather?.[0]?.description || 'N/A';
+    const iconCode = weatherData.weather?.[0]?.icon || '';
+    const location = weatherData.name || 'Aalborg';  // Default location is Aalborg
+
+    // Set the weather icon using OpenWeatherMap icon code
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+    // Update the weather information in the UI
+    weatherElement.innerHTML = `
+        <div>
+            <h2>${location}</h2>
+            <p>${currentTime}</p>
+            <img src="${iconUrl}" alt="${description}" />
+            <p>${temperature}°C, ${description}</p>
+        </div>
+    `;
 }
 
 // --- API CONFIGURATION AND UPDATER INITIALIZATION ---
@@ -65,7 +78,7 @@ async function initializeAPIUpdater() {
         method: 'GET',
         onUpdate: (data) => updateWeatherUI(data),
         onError: (error) => console.error('Error fetching weather data:', error)
-    }], 50000); // Update every 10 seconds
+    }], 10000); // Update every 10 seconds
 
     // Fetch and update bus times
     const busConfig = await fetchAPIConfigsbusser();
@@ -73,9 +86,9 @@ async function initializeAPIUpdater() {
         name: 'bustider',
         url: 'https://xmlopen.rejseplanen.dk/bin/rest.exe/multiDepartureBoard?id1=851400602&id2=851973402&rttime&format=json&useBus=1',
         method: 'GET',
-        onUpdate: (data) => updateBusTimesUI(data.MultiDepartureBoard.Departure), // Assuming 'DepartureBoard' contains the relevant data
+        onUpdate: (data) => updateBusTimesUI(data.MultiDepartureBoard.Departure),
         onError: (error) => console.error('Error fetching bus times:', error)
-    }], 50000); // Update every 10 seconds
+    }], 10000); // Update every 10 seconds
 
     // Fetch and update class schedules
     const classConfig = await fetchAPIConfigsklasser();
@@ -83,9 +96,9 @@ async function initializeAPIUpdater() {
         name: 'klasser',
         url: 'https://iws.itcn.dk/techcollege/schedules?departmentcode=smed',
         method: 'GET',
-        onUpdate: (data) => updateClassScheduleUI(data), // Assuming the raw data contains the classes
+        onUpdate: (data) => updateClassScheduleUI(data),
         onError: (error) => console.error('Error fetching class schedules:', error)
-    }], 50000); // Update every 10 seconds
+    }], 10000); // Update every 10 seconds
 
     // Fetch and update canteen menu
     const canteenConfig = await fetchAPIConfigsmadplan();
@@ -93,9 +106,9 @@ async function initializeAPIUpdater() {
         name: 'madplan',
         url: 'https://infoskaerm.techcollege.dk/umbraco/api/content/getcanteenmenu/?type=json',
         method: 'GET',
-        onUpdate: (data) => updateCanteenMenuUI(data.Days), // Assuming 'Menu' contains the relevant data
+        onUpdate: (data) => updateCanteenMenuUI(data.Days),
         onError: (error) => console.error('Error fetching canteen menu:', error)
-    }], 50000); // Update every 10 seconds
+    }], 10000); // Update every 10 seconds
 }
 
 // Initialize everything
