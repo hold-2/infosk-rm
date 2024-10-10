@@ -27,17 +27,6 @@ export function filterClassesByProgram(classData) {
 // Function to update the UI with the latest class schedules
 function updateClassScheduleUI(classData) {
     const filteredClasses = filterClassesByProgram(classData);
-    
-    // Clear the existing class schedules from the UI
-    const classListElement = document.getElementById('class-schedule');
-    classListElement.innerHTML = ''; // Clear previous data
-
-    // Append the new class schedules to the UI
-    filteredClasses.forEach(classItem => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${classItem.Room || 'unnamed room'}:${classItem.Team || 'Unnamed Class'}:${classItem.Education || 'Unknown Program'}:${new Date(classItem.StartDate).toLocaleTimeString("da-DK").slice(0,5) || 'No Time Available'}`;
-        classListElement.appendChild(listItem);
-    });
 }
 
 // Fetch the class schedules initially and set up the periodic update

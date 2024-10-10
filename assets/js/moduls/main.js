@@ -5,18 +5,47 @@ import { fetchAPIConfigsbusser } from './bustiderapi.js';
 import { fetchAPIConfigsvejr } from './vejrapi.js'; // Weather API
 
 // --- FUNCTIONS TO UPDATE THE UI ---
+// Function to filter valid activities by using our config file
+const filterValidActivities = (arr) => {
+let filteredData = arr.filter((item) =>
+  activityConfig.validEducations.includes(item.Education)
+);
+return filteredData;
+};
+
+// Function to filter out the current activities from StartDate
+const filterCurrentActivities = (arr) => {
+let currentActivities = arr.filter(
+  (item) => new Date(item.StartDate) >= new Date() - 3600000
+);
+return currentActivities;
+};
+
+// Function to sort all activities by date / time
+const sortActivities = (arr) => {
+let sortedData = arr.sort(
+  (a, b) => new Date(a.StartDate) - new Date(b.StartDate)
+);
+return sortedData;
+};
 
 // Function to update class schedule UI
 function updateClassScheduleUI(classData) {
     const filteredClasses = filterClassesByProgram(classData);
+    const Activities = filterCurrentActivities(filteredClasses)
+    const sorted = sortActivities(Activities)
     const classListElement = document.getElementById('class-schedule');
     classListElement.innerHTML = ''; // Clear previous data
 
-    filteredClasses.forEach(classItem => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${classItem.Room || 'unnamed room'}:${classItem.Team || 'Unnamed Class'}:${classItem.Education || 'Unknown Program'}:${new Date(classItem.StartDate).toLocaleTimeString("da-DK").slice(0,5) || 'No Time Available'}`;
-        classListElement.appendChild(listItem);
+    sorted.forEach((classItem,index) => {
+        if (index < 11) {
+            
+            const listItem = document.createElement('li');
+            listItem.textContent = `${classItem.Room || 'unnamed room'}:${classItem.Team || 'Unnamed Class'}:${classItem.Education || 'Unknown Program'}:${new Date(classItem.StartDate).toLocaleTimeString("da-DK").slice(0,5) || 'No Time Available'}`;
+            classListElement.appendChild(listItem);
+        }
     });
+
 }
 // Function to update canteen menu UI
 function updateCanteenMenuUI(menuData) {
@@ -35,11 +64,15 @@ function updateCanteenMenuUI(menuData) {
 function updateBusTimesUI(busData) {
     const busListElement = document.getElementById('bus-schedule');
     busListElement.innerHTML = ''; // Clear previous data
+    
 
-    busData.forEach(busItem => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `Bus ${busItem.line}: ${busItem.stop} at ${busItem.time}`;
-        busListElement.appendChild(listItem);
+    busData.forEach((busItem,index) => {
+        if (index < 4) {
+            
+            const listItem = document.createElement('li');
+            listItem.textContent = `Bus ${busItem.line}: ${busItem.stop} at ${busItem.time}`;
+            busListElement.appendChild(listItem);
+        }
     });
 }
 

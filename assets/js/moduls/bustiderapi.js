@@ -1,5 +1,3 @@
-import APIUpdater from './apiUpdater.js';
-
 // Function to fetch bus times
 export async function fetchAPIConfigsbusser() {
     try {
@@ -23,7 +21,6 @@ export function filterAndSortBusTimes(busData, specificStops) {
 
     // Sort by time
     const sortedBusTimes = filteredBusTimes.sort((a, b) => new Date(a.time) - new Date(b.time));
-
     return sortedBusTimes;
 }
 // Bus stops you're interested in
@@ -36,19 +33,8 @@ function updateBusTimetable(busData) {
     // Clear the existing bus times from the UI
     const timetableElement = document.getElementById('bus-schedule');
     timetableElement.innerHTML = '';
-
-    // Append new bus times to the UI
-    sortedBusTimes.forEach(bus => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${bus.stop}: ${bus.time}`;
-        timetableElement.appendChild(listItem);
-    });
 }
 
 // Fetch the bus times initially and set up the periodic update
 fetchAPIConfigsbusser().then((initialData) => {
-    // Update the UI with the initial bus times
-
-    console.log(initialData)
-    //updateBusTimetable(initialData.MultiDepartureBoard.Departure);
 });
