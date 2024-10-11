@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+  font-family: 'Arial', sans-serif;
     background-color: #2C2C2C; /* Dark background */
     color: #FFFFFF; /* White text */
     margin: 0;
@@ -63,4 +63,3 @@ ul li:last-child {
     #weather-info {
         font-size: 1.2em; /* Smaller weather info font size */
     }
-}
